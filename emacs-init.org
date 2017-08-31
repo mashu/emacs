@@ -145,31 +145,32 @@
 ** Completion
    Use company-mode for all sorts of completions. First load company package and re-define some of key-bindings.
    #+BEGIN_SRC emacs-lisp
-     ;; Core company package
-     (use-package company
-       :ensure t
-       :diminish company-mode
-       :config
-       (setq company-tooltip-align-annotations t)
-       (setq company-selection-wrap-around t)
-       (setq company-tooltip-flip-when-above t)
-       (setq company-idle-delay 0.0)
-       (setq company-minimum-prefix-length 3)
-       (setq company-show-numbers t)
+          ;; Core company package
+          (use-package company
+            :ensure t
+            :diminish company-mode
+            :config
+            (setq company-tooltip-align-annotations t)
+            (setq company-selection-wrap-around t)
+            (setq company-tooltip-flip-when-above t)
+            (setq company-idle-delay 0.0)
+            (setq company-minimum-prefix-length 3)
+            (setq company-show-numbers t)
   
-       (add-hook 'after-init-hook 'global-company-mode) 
-       :bind
-       (("C-<tab>" . company-complete)
-        :map company-active-map
-        ;; Abort keys
-        ("ESC" . company-abort)
-        ("SPC" . company-abort)
-        ;; RET for terminal, <return> for windowed
-        ("<return>" . company-abort)
-        ;; Complete selection
-        ("<C-return>" . company-complete-selection)
-        )
-       )
+            (delete 'company-dabbrev company-backends)
+            (add-hook 'after-init-hook 'global-company-mode) 
+            :bind
+            (("C-<tab>" . company-complete)
+             :map company-active-map
+             ;; Abort keys
+             ("ESC" . company-abort)
+             ("SPC" . company-abort)
+             ;; RET for terminal, <return> for windowed
+             ("<return>" . company-abort)
+             ;; Complete selection
+             ("<C-return>" . company-complete-selection)
+             )
+            )
    #+END_SRC
    
    Display help for completion as popup
@@ -184,17 +185,6 @@
        (setq company-quickhelp-delay 0.1)
        )
    #+END_SRC
-
-   Diminish abbrev from minor and store abbreviations
-   #+BEGIN_SRC emacs-lisp
-     (use-package abbrev
-       :after company
-       :diminish abbrev-mode
-       :config (progn
-                 (setq save-abbrevs t)
-                 (setq-default abbrev-mode t))
-       )
-  #+END_SRC
   
 ** Helm
    Use helm for incremental searching
