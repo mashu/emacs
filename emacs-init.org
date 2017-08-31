@@ -396,14 +396,14 @@
         (progn 
           ;; Set default indent
           (setq python-indent-offset 4)
-      
+
           ;; Use jedi as compeltion backend
           (setq elpy-rpc-backend "jedi")
           ;; Use Python to run the RPC process
-          (setq elpy-rpc-python-command "python")
+          (setq elpy-rpc-python-command "python3")
           ;; Fix native completion
-          (setq python-shell-interpreter "python")
-      
+          (setq python-shell-interpreter "python3")
+
           ;; Enable company as completion backend
           (setq company-auto-complete t)
           ;; Remove flymake module since we use flycheck
@@ -413,6 +413,11 @@
           (add-hook 'elpy-mode-hook 'company-mode)
           ;; Hookup jedi setup
           (add-hook 'elpy-mode-hook 'jedi:setup)
+          ;; Use python3 with jedi
+          (setq jedi:environment-root "jedi")  ; or any other name you like
+          (setq jedi:environment-virtualenv
+                (append python-environment-virtualenv
+                        '("--python" "python3")))
           )
         )
       )
@@ -434,7 +439,7 @@
     (use-package company-jedi
       :ensure t
       :init
-      (setq company-jedi-python-bin "python")
+      (setq company-jedi-python-bin "python3")
       :config
       (add-to-list 'company-backends 'company-jedi)
       )
