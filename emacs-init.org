@@ -485,7 +485,7 @@
   R for statistics and Julia for numerical computations with ESS (Emacs speaks statistics).
   #+BEGIN_SRC emacs-lisp
     ;; Set path to latest julia
-    (setq inferior-julia-program-name "~/Downloads/julia-0.5.1/julia")
+    (setq inferior-julia-program-name "~/Downloads/julia")
     (use-package ess-site
       :ensure ess
       :defer t
@@ -551,7 +551,7 @@
       )
 
     ;; Load julia
-    (load "/home/mateuszk/.emacs.d/ob-julia/ob-julia.el")
+    (load "~/.emacs.d/ob-julia/ob-julia.el")
 
     ;; Supported languages
     (org-babel-do-load-languages
