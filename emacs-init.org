@@ -572,8 +572,18 @@
   
   Highlight syntax in exported HTML
   #+BEGIN_SRC emacs-lisp
-(use-package htmlize
-  :ensure t)
+    (use-package htmlize
+      :ensure t)
+  #+END_SRC
+
+  Support drag and drop
+  #+BEGIN_SRC emacs-lisp
+    (use-package org-download
+      :ensure t
+      :defer 2
+      :config
+      (setq-default org-download-image-dir "~/Dropbox/Pictures/")
+      )
   #+END_SRC
 
 ** Presentations  
