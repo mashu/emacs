@@ -383,7 +383,10 @@
         :init
         (elpy-enable)
         :config
-        (progn 
+        (progn
+          ;; Use pyenv
+          (pyvenv-activate "~/pyenv/")
+
           ;; Set default indent
           (setq python-indent-offset 4)
 
@@ -392,8 +395,8 @@
           ;; Use Python to run the RPC process
           (setq elpy-rpc-python-command "python3")
           ;; Fix native completion
-          (setq python-shell-interpreter "python3")
-
+          (setq python-shell-interpreter "ipython3" python-shell-interpreter-args "--simple-prompt --pprint")
+      
           ;; Enable company as completion backend
           (setq company-auto-complete t)
           ;; Remove flymake module since we use flycheck
@@ -403,11 +406,6 @@
           (add-hook 'elpy-mode-hook 'company-mode)
           ;; Hookup jedi setup
           (add-hook 'elpy-mode-hook 'jedi:setup)
-          ;; Use python3 with jedi
-          (setq jedi:environment-root "jedi")  ; or any other name you like
-          (setq jedi:environment-virtualenv
-                (append python-environment-virtualenv
-                        '("--python" "python3")))
           )
         )
       )
