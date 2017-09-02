@@ -186,6 +186,16 @@
        )
    #+END_SRC
   
+ * Projectile
+   Manage projects with projectile
+   #+BEGIN_SRC emacs-lisp
+     (use-package projectile
+       :ensure    projectile
+       :config    (projectile-global-mode t)
+       :diminish   projectile-mode)
+
+
+   #+END_SRC
 ** Helm
    Use helm for incremental searching
    #+BEGIN_SRC emacs-lisp
