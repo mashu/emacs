@@ -313,7 +313,13 @@
       (global-set-key (kbd "C-c m") 'magit-status)
       )
   #+END_SRC
-  
+** Gist
+   Install package and assign key-binding for easy gist pasting
+   #+BEGIN_SRC emacs-lisp
+     (use-package gist
+       :ensure t
+       :bind ("C-c C-g" . gist-region-or-buffer-private))
+   #+END_SRC
 * C/C++
   Configure company completion for C/C++ langages.
   
@@ -405,7 +411,7 @@
           ;; Use Python to run the RPC process
           (setq elpy-rpc-python-command "python3")
           ;; Fix native completion
-          (setq python-shell-interpreter "ipython3" python-shell-interpreter-args "--simple-prompt --pprint")
+          (setq python-shell-interpreter "python3")
       
           ;; Enable company as completion backend
           (setq company-auto-complete t)
