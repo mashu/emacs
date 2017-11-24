@@ -186,7 +186,7 @@
        )
    #+END_SRC
   
- * Projectile
+** Projectile
    Manage projects with projectile
    #+BEGIN_SRC emacs-lisp
      (use-package projectile
