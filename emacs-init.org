@@ -646,4 +646,20 @@
       )
   #+END_SRC
   
+* Scala
+  Use ENSIME as the Scala toolbox for editing Scala projects, as well as scala-mode and sbt-mode.
+  #+BEGIN_SRC emacs-lisp
+    (use-package ensime
+      :ensure t
+      :pin melpa-stable
+      )
+    (use-package sbt-mode
+      :ensure t
+      :pin melpa-stable
+      )
 
+    (use-package scala-mode
+      :ensure t
+      :pin melpa-stable
+      )
+  #+END_SRC
