@@ -28,27 +28,47 @@
     (setq initial-scratch-message nil)
   #+END_SRC
 
-  Select default moe-theme
+  Select default theme
   #+BEGIN_SRC emacs-lisp
-    (use-package moe-theme
+    (use-package zenburn-theme
       :ensure t
       :config
-      ;; Select theme colors
-      (setq moe-theme-mode-line-color 'orange)
-      (moe-dark)
-      ;; Use powerline
-      (use-package powerline
-        :ensure t
-        :init (powerline-default-theme)
-        :config
-        (setq powerline-default-separator 'wave)
-        )
-      ;; Highlight block with matching parens
-      (show-paren-mode t)
-      (setq show-paren-style 'expression)
-      )
+      (load-theme 'zenburn t))
+    ;; Use automatic
+    (use-package smartparens
+    :ensure t
+    :config (use-package smartparens-config))
   #+END_SRC
-
+ 
+  Use spaceline and all-the-icons-theme for modeline but remember to install fonts with M-x *all-the-icons-install-fonts*.
+  #+BEGIN_SRC emacs-lisp
+    (use-package spaceline-config 
+      :ensure spaceline
+      :config
+      (spaceline-helm-mode 1)
+      )
+    (use-package spaceline-all-the-icons 
+      :ensure t
+      :after spaceline-config
+      :config
+      (setq spaceline-all-the-icons-icon-set-flycheck-slim 'dots
+            spaceline-all-the-icons-flycheck-alternate t
+            spaceline-all-the-icons-highlight-file-name t
+            spaceline-all-the-icons-hide-long-buffer-path t
+            spaceline-all-the-icons-separator-type (quote wave)
+            powerline-text-scale-factor 1.0
+            spaceline-responsive nil
+            )
+      (spaceline-toggle-all-the-icons-bookmark-on)
+      (spaceline-toggle-all-the-icons-dedicated-on)
+      (spaceline-toggle-all-the-icons-fullscreen-on)
+      (spaceline-toggle-all-the-icons-buffer-position-on)
+      (spaceline-all-the-icons--setup-package-updates)
+      (spaceline-all-the-icons--setup-paradox)
+      (spaceline-all-the-icons--setup-neotree)
+      (spaceline-all-the-icons-theme))
+  #+END_SRC
+  
   Enable line numbers in programming buffers with *nlinum*
   #+BEGIN_SRC emacs-lisp
     (use-package nlinum

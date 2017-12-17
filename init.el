@@ -21,7 +21,6 @@
 ;; Compile and evaluate use-package
 (eval-when-compile
   (require 'use-package))
-(require 'diminish)                ;; For :diminish
 (require 'bind-key)                ;; For :bind
 
 ;; Load org-plug-contrib with use-package
