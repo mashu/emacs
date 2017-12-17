@@ -476,52 +476,6 @@
       (add-to-list 'company-backends 'company-jedi)
       )
   #+END_SRC
-* Perl  
-  Use cperl-mode for Perl
-  #+BEGIN_SRC emacs-lisp
-    (use-package cperl-mode
-      :ensure t
-      :init (progn 
-              (defun perl-eval-region (beg end)
-                "Run selected region as Perl code"
-                (interactive "r")
-                (with-help-window "Perl"
-                  (shell-command-on-region beg end "perl" "Perl")
-                  )
-                )
-              (defun perl-eval-buffer ()
-                "Run buffer as Perl code"
-                (interactive)
-                (with-help-window "Perl"
-                  (shell-command-on-region (point-min) (point-max) "perl" "Perl")
-                  )
-                )
-              (defalias 'perl-mode 'cperl-mode)
-              )
-      :config (progn
-                (setq cperl-autoindent-on-semi t
-                      cperl-auto-newline t
-                      cperl-clobber-lisp-bindings t
-                      cperl-close-paren-offset -2
-                      cperl-continued-statement-offset 2
-                      cperl-electric-keywords t
-                      cperl-electric-lbrace-space nil
-                      cperl-electric-linefeed t
-                      cperl-electric-parens nil
-                      cperl-font-lock t
-                      cperl-highlight-variables-indiscriminately t
-                      cperl-indent-level 2
-                      cperl-indent-parens-as-block t
-                      cperl-indent-region-fix-constructs nil
-                      cperl-info-on-command-no-prompt t
-                      cperl-invalid-face nil
-                      cperl-lazy-help-time 5
-                      cperl-tab-always-indent t)
-                )
-      :bind (("C-c C-c" . perl-eval-buffer)
-             ("C-c C-r" . perl-eval-region))
-      )
-  #+END_SRC
 
 * Statistics
   R for statistics and Julia for numerical computations with ESS (Emacs speaks statistics).
