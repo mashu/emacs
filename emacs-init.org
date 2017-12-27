@@ -429,7 +429,7 @@
           ;; Use pyenv
           (setq pyenv-path (expand-file-name "~/pyenv"))
           (when (file-exists-p pyenv-path)
-            (pyvenv-activate pyenv-path)
+            (pyvenv-activate pyenv-path))
 
           ;; Set default indent
           (setq python-indent-offset 4)
