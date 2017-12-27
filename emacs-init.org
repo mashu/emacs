@@ -427,7 +427,7 @@
         :config
         (progn
           ;; Use pyenv
-          (setq pyenv-path (expand-file-name "~/pyenv"))
+          (setq pyenv-path "~/pyenv")
           (when (file-exists-p pyenv-path)
             (pyvenv-activate pyenv-path))
 
