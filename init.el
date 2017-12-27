@@ -1,6 +1,7 @@
 ;; Keep init.el clean from customizations
-(setq custom-file "~/.emacs.d/custom.el")
-(load custom-file)
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+(when (file-exists-p custom-file)
+  (load custom-file))
 
 ;; Load default package manager
 (require 'package)
