@@ -30,10 +30,10 @@
 
   Select default theme
   #+BEGIN_SRC emacs-lisp
-    (use-package zenburn-theme
+    (use-package nord-theme
       :ensure t
       :config
-      (load-theme 'zenburn t))
+      (load-theme 'nord t))
     ;; Use automatic
     (use-package smartparens
     :ensure t
@@ -64,8 +64,6 @@
       (spaceline-toggle-all-the-icons-fullscreen-on)
       (spaceline-toggle-all-the-icons-buffer-position-on)
       (spaceline-all-the-icons--setup-package-updates)
-      (spaceline-all-the-icons--setup-paradox)
-      (spaceline-all-the-icons--setup-neotree)
       (spaceline-all-the-icons-theme))
   #+END_SRC
   
@@ -416,7 +414,7 @@
 * Python
   Load elpy for python-mode.
   #+BEGIN_SRC emacs-lisp
-    (use-package python
+    (use-package python-mode
       :ensure t
       :defer t
       :mode ("\\.py" . python-mode)
@@ -429,7 +427,9 @@
         :config
         (progn
           ;; Use pyenv
-          (pyvenv-activate "~/pyenv/")
+          (setq pyenv-path (expand-file-name "~/pyenv"))
+          (when (file-exists-p pyenv-path)
+            (pyvenv-activate pyenv-path)
 
           ;; Set default indent
           (setq python-indent-offset 4)
@@ -438,9 +438,10 @@
           (setq elpy-rpc-backend "jedi")
           ;; Use Python to run the RPC process
           (setq elpy-rpc-python-command "python3")
-          ;; Fix native completion
-          (setq python-shell-interpreter "python3")
-      
+          ;; Default shell interpreter
+          (setq python-shell-interpreter "ipython3")
+          (setq python-shell-interpreter-args "--simple-prompt --pprint")
+
           ;; Enable company as completion backend
           (setq company-auto-complete t)
           ;; Remove flymake module since we use flycheck
@@ -547,7 +548,7 @@
       )
 
     ;; Load julia
-    (load "~/.emacs.d/ob-julia/ob-julia.el")
+    ;; (load "~/.emacs.d/ob-julia/ob-julia.el")
 
     ;; Supported languages
     (org-babel-do-load-languages
