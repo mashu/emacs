@@ -159,34 +159,47 @@
     )
   #+END_SRC
 ** Completion
+   Use snippets as one of company back-ends
+   #+BEGIN_SRC emacs-lisp
+     (use-package yasnippet
+       :ensure t
+       :diminish yas-minor-mode
+       :config
+       (setq yas-snippet-dirs
+             (append yas-snippet-dirs
+                     '("~/.emacs.d/snippets/")))
+       (yas-global-mode 1))
+   #+END_SRC
+
    Use company-mode for all sorts of completions. First load company package and re-define some of key-bindings.
    #+BEGIN_SRC emacs-lisp
-          ;; Core company package
-          (use-package company
-            :ensure t
-            :diminish company-mode
-            :config
-            (setq company-tooltip-align-annotations t)
-            (setq company-selection-wrap-around t)
-            (setq company-tooltip-flip-when-above t)
-            (setq company-idle-delay 0.0)
-            (setq company-minimum-prefix-length 3)
-            (setq company-show-numbers t)
+               ;; Core company package
+               (use-package company
+                 :ensure t
+                 :diminish company-mode
+                 :config
+                 (setq company-tooltip-align-annotations t)
+                 (setq company-selection-wrap-around t)
+                 (setq company-tooltip-flip-when-above t)
+                 (setq company-idle-delay 0.0)
+                 (setq company-minimum-prefix-length 3)
+                 (setq company-show-numbers t)
   
-            (delete 'company-dabbrev company-backends)
-            (add-hook 'after-init-hook 'global-company-mode) 
-            :bind
-            (("C-<tab>" . company-complete)
-             :map company-active-map
-             ;; Abort keys
-             ("ESC" . company-abort)
-             ("SPC" . company-abort)
-             ;; RET for terminal, <return> for windowed
-             ("<return>" . company-abort)
-             ;; Complete selection
-             ("<C-return>" . company-complete-selection)
-             )
-            )
+                 (delete 'company-dabbrev company-backends)
+                 (add-to-list 'company-backends 'company-yasnippet)
+                 (add-hook 'after-init-hook 'global-company-mode) 
+                 :bind
+                 (("C-<tab>" . company-complete)
+                  :map company-active-map
+                  ;; Abort keys
+                  ("ESC" . company-abort)
+                  ("SPC" . company-abort)
+                  ;; RET for terminal, <return> for windowed
+                  ("<return>" . company-abort)
+                  ;; Complete selection
+                  ("<C-return>" . company-complete-selection)
+                  )
+                 )
    #+END_SRC
    
    Display help for completion as popup
@@ -198,7 +211,7 @@
        :init
        :config
        (company-quickhelp-mode 1)
-       (setq company-quickhelp-delay 0.1)
+       (setq company-quickhelp-delay 0)
        )
    #+END_SRC
   
