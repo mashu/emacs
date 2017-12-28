@@ -150,8 +150,7 @@
     (use-package flycheck
       :ensure t
       :diminish flycheck-mode
-      :commands flycheck-mode
-      :defer t
+      :init (global-flycheck-mode)
       :config
       (setq flycheck-check-syntax-automatically '(mode-enabled save idle-change))
       (setq flycheck-highlighting-mode 'lines)
