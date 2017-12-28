@@ -72,11 +72,10 @@
     (use-package nlinum
       :ensure t
       :config
-      (progn 
-        (setq nlinum-format " %d ") ; 1 space padding on each side of line number
-        (setq nlinum-highlight-current-line t)
-        (add-hook 'prog-mode-hook 'nlinum-mode)
-        ))
+      (setq nlinum-format " %d ") ; 1 space padding on each side of line number
+      (setq nlinum-highlight-current-line t)
+      (add-hook 'prog-mode-hook 'nlinum-mode)
+      )
   #+END_SRC
 
   Don't blink cursor
@@ -253,12 +252,10 @@
        :ensure t
        :after company
        :config
-       (progn
-         (define-key company-mode-map (kbd "C-:") 'helm-company)
-         (define-key company-active-map (kbd "C-:") 'helm-company)
-         ;; File completion key-binding
-         (define-key global-map (kbd "C-u") 'helm-complete-file-name-at-point)
-         )
+       (define-key company-mode-map (kbd "C-:") 'helm-company)
+       (define-key company-active-map (kbd "C-:") 'helm-company)
+       ;; File completion key-binding
+       (define-key global-map (kbd "C-u") 'helm-complete-file-name-at-point)
        )
    #+END_SRC
    
@@ -425,33 +422,31 @@
         :init
         (elpy-enable)
         :config
-        (progn
-          ;; Use pyenv
-          (setq pyenv-path "~/pyenv")
-          (when (file-exists-p pyenv-path)
-            (pyvenv-activate pyenv-path))
-
-          ;; Set default indent
-          (setq python-indent-offset 4)
-
-          ;; Use jedi as compeltion backend
-          (setq elpy-rpc-backend "jedi")
-          ;; Use Python to run the RPC process
-          (setq elpy-rpc-python-command "python3")
-          ;; Default shell interpreter
-          (setq python-shell-interpreter "ipython3")
-          (setq python-shell-interpreter-args "--simple-prompt --pprint")
-
-          ;; Enable company as completion backend
-          (setq company-auto-complete t)
-          ;; Remove flymake module since we use flycheck
-          (remove-hook 'elpy-modules 'elpy-module-flymake)
-          (add-hook 'elpy-mode-hook 'flycheck-mode)
-          ;; Hookup company mode
-          (add-hook 'elpy-mode-hook 'company-mode)
-          ;; Hookup jedi setup
-          (add-hook 'elpy-mode-hook 'jedi:setup)
-          )
+        ;; Use pyenv
+        (setq pyenv-path "~/pyenv")
+        (when (file-exists-p pyenv-path)
+          (pyvenv-activate pyenv-path))
+    
+        ;; Set default indent
+        (setq python-indent-offset 4)
+    
+        ;; Use jedi as compeltion backend
+        (setq elpy-rpc-backend "jedi")
+        ;; Use Python to run the RPC process
+        (setq elpy-rpc-python-command "python3")
+        ;; Default shell interpreter
+        (setq python-shell-interpreter "ipython3")
+        (setq python-shell-interpreter-args "--simple-prompt --pprint")
+    
+        ;; Enable company as completion backend
+        (setq company-auto-complete t)
+        ;; Remove flymake module since we use flycheck
+        (remove-hook 'elpy-modules 'elpy-module-flymake)
+        (add-hook 'elpy-mode-hook 'flycheck-mode)
+        ;; Hookup company mode
+        (add-hook 'elpy-mode-hook 'company-mode)
+        ;; Hookup jedi setup
+        (add-hook 'elpy-mode-hook 'jedi:setup)
         )
       )
   #+END_SRC
@@ -595,21 +590,19 @@
       :ensure t
       :pin melpa
       :config
-      (progn 
-        (setq reftex-default-bibliography '("~/Dropbox/Research/references.bib"))
-        (setq org-default-notes-file "~/Dropbox/Research/notes.org")
-        (setq org-ref-bibliography-notes "~/Dropbox/Research/notes.org"
-              org-ref-default-bibliography '("~/Dropbox/Research/references.bib")
-              org-ref-pdf-directory "~/Dropbox/Research/papers/")
-
-        ;; Customize bibtex key generation (useful for doi importer)
-        (setq bibtex-align-at-equal-sign t
-              bibtex-autokey-name-year-separator ""
-              bibtex-autokey-year-title-separator ""
-              bibtex-autokey-titleword-first-ignore '("the" "a" "if" "and" "an")
-              bibtex-autokey-titleword-length 10
-              bibtex-autokey-titlewords 1)
-        )
+      (setq reftex-default-bibliography '("~/Dropbox/Research/references.bib"))
+      (setq org-default-notes-file "~/Dropbox/Research/notes.org")
+      (setq org-ref-bibliography-notes "~/Dropbox/Research/notes.org"
+            org-ref-default-bibliography '("~/Dropbox/Research/references.bib")
+            org-ref-pdf-directory "~/Dropbox/Research/papers/")
+  
+      ;; Customize bibtex key generation (useful for doi importer)
+      (setq bibtex-align-at-equal-sign t
+            bibtex-autokey-name-year-separator ""
+            bibtex-autokey-year-title-separator ""
+            bibtex-autokey-titleword-first-ignore '("the" "a" "if" "and" "an")
+            bibtex-autokey-titleword-length 10
+            bibtex-autokey-titlewords 1)
       )
   #+END_SRC
   
