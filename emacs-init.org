@@ -600,14 +600,6 @@
     ;; Load julia for org-mode
     ;; (load "~/.emacs.d/ob-julia/ob-julia.el")
 
-    ;; Load ipython for org-mode
-    (use-package ob-ipython
-      :ensure t
-      :config
-      :after (company, elpy) ;; Load after these packages
-      (add-to-list 'company-backends 'company-ob-ipython)
-      )
-
     ;; Load scala for org-mode part of scala-mode
     (require 'ob-scala)
 
@@ -617,7 +609,6 @@
      '((R . t)
        (emacs-lisp . t)
        (python . t)
-       (ipython . t)
        (scala . t)
        (sh . t)
        (C . t)
