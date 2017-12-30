@@ -515,6 +515,33 @@
       )
   #+END_SRC
   
+* Scala
+  Use ENSIME as the Scala toolbox for editing Scala projects, as well as scala-mode and sbt-mode.
+  #+BEGIN_SRC emacs-lisp
+    (use-package sbt-mode
+      :ensure t
+      :pin melpa-stable
+      :config
+      ;; Local hook to run code in console
+      (add-hook 'sbt-mode-hook
+                '(lambda ()
+                   (setq compilation-skip-threshold 1)
+                   (local-set-key (kbd "C-a") 'comint-bol)
+                   (local-set-key (kbd "M-RET") 'comint-accumulate)))
+      )
+    (use-package scala-mode
+      :ensure t
+      :pin melpa-stable
+      :interpreter
+      ("scala" . scala-mode)
+      )
+
+    (use-package ensime
+      :ensure t
+      :pin melpa-stable
+      )
+  #+END_SRC
+
 * Org-mode
 ** Basic
   Load Org-mode on demand.
@@ -562,10 +589,27 @@
 
       ;; To have \alpha, \to and others display
       (setq org-pretty-entities t)
+
+      ;; Don't ask for confirmation to evaluate source blocks
+      (setq org-confirm-babel-evaluate nil)
+
+      ;; Update and display inline images after block evaluation
+      (add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
       )
 
-    ;; Load julia
+    ;; Load julia for org-mode
     ;; (load "~/.emacs.d/ob-julia/ob-julia.el")
+
+    ;; Load ipython for org-mode
+    (use-package ob-ipython
+      :ensure t
+      :config
+      :after (company, elpy) ;; Load after these packages
+      (add-to-list 'company-backends 'company-ob-ipython)
+      )
+
+    ;; Load scala for org-mode part of scala-mode
+    (require 'ob-scala)
 
     ;; Supported languages
     (org-babel-do-load-languages
@@ -573,6 +617,8 @@
      '((R . t)
        (emacs-lisp . t)
        (python . t)
+       (ipython . t)
+       (scala . t)
        (sh . t)
        (C . t)
        (sql . t)
@@ -644,20 +690,3 @@
       )
   #+END_SRC
   
-* Scala
-  Use ENSIME as the Scala toolbox for editing Scala projects, as well as scala-mode and sbt-mode.
-  #+BEGIN_SRC emacs-lisp
-    (use-package ensime
-      :ensure t
-      :pin melpa-stable
-      )
-    (use-package sbt-mode
-      :ensure t
-      :pin melpa-stable
-      )
-
-    (use-package scala-mode
-      :ensure t
-      :pin melpa-stable
-      )
-  #+END_SRC
