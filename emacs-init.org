@@ -134,7 +134,9 @@
 ** Backups
    Instead of current directory use dedicated folder for backups
    #+BEGIN_SRC emacs-lisp
-   (setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
+     (setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
+     ;; Don't ask to delete old backup
+     (setq delete-old-versions t)
    #+END_SRC
    
    Use version control for storing them
