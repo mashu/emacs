@@ -56,7 +56,6 @@
             spaceline-all-the-icons-highlight-file-name t
             spaceline-all-the-icons-hide-long-buffer-path t
             spaceline-all-the-icons-separator-type (quote wave)
-            powerline-text-scale-factor 1.0
             spaceline-responsive nil
             )
       (spaceline-toggle-all-the-icons-bookmark-on)
@@ -64,7 +63,8 @@
       (spaceline-toggle-all-the-icons-fullscreen-on)
       (spaceline-toggle-all-the-icons-buffer-position-on)
       (spaceline-all-the-icons--setup-package-updates)
-      (spaceline-all-the-icons-theme))
+      (spaceline-all-the-icons-theme)
+      )
   #+END_SRC
   
   Enable line numbers in programming buffers with *nlinum*
@@ -293,6 +293,17 @@
        (setq projectile-completion-system 'helm)
        (helm-projectile-on)
        )
+     ;; Use org-projectile for todo
+     (use-package org-projectile
+       :bind (("C-c n p" . org-projectile-project-todo-completing-read)
+              ("C-c c" . org-capture))
+       :config
+       (progn
+         (setq org-projectile-projects-file
+               "~/Dropbox/projects.org")
+         (setq org-agenda-files (append org-agenda-files (org-projectile-todo-files)))
+         (push (org-projectile-project-todo-entry) org-capture-templates))
+       :ensure t)
    #+END_SRC
    
    Instead of default isearch use helm-swoop for searching buffer
@@ -349,6 +360,22 @@
       (setq ispell-really-hunspell t)
       )
 #+END_SRC
+* Language tool
+  Tool to check grammar
+  #+BEGIN_SRC emacs-lisp
+    (use-package langtool
+      :ensure t
+      :bind (("\C-x4w" . langtool-check)
+         ("\C-x4W" . langtool-check-done)
+         ("\C-x4l" . langtool-switch-default-language)
+         ("\C-x44" . langtool-show-message-at-point)
+         ("\C-x4c" . langtool-correct-buffer))
+      :config
+      (setq langtool-language-tool-jar "/opt/LanguageTool-4.0/languagetool-commandline.jar")
+      (setq langtool-default-language "en-US")
+      )
+  #+END_SRC
+
 * Git
   Define global key *C-c m* for starting Emacs's git client
   #+BEGIN_SRC emacs-lisp
