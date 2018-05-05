@@ -337,27 +337,24 @@
     (use-package flyspell
       :ensure t
       :defer t
-      :diminish flyspell-mode
       :init
       (progn
-        (dolist (mode '(org-mode-hook
-                        emacs-lisp-mode-hook
-                        text-mode-hook))
-          (add-hook mode '(lambda () (flyspell-mode))))
-        (dolist (mode '(elpy-mode-hook
-                        prog-mode-hook))
-          (add-hook mode '(lambda () (flyspell-prog-mode))))
+        ;; Use hunspell
+        ;; (setq ispell-program-name "hunspell")
+        ;; (setq ispell-extra-args   '("-d en_US"))
+        ;; Add hooks
+        (add-hook 'prog-mode-hook 'flyspell-prog-mode)
+        (add-hook 'text-mode-hook 'flyspell-mode)
         )
       :config
       (defun flyspell-check-next-highlighted-word ()
         "Custom function to spell check next highlighted word"
         (interactive)
         (flyspell-goto-next-error)
-        (ispell-word))
+        (ispell-word)
+        )
+      ;; Sets flyspell correction 
       (global-set-key (kbd "C-<f8>") 'flyspell-check-next-highlighted-word)
-      ;; Prefer hunspell over ispell
-      (setq-default ispell-program-name "hunspell")
-      (setq ispell-really-hunspell t)
       )
 #+END_SRC
 * Language tool
