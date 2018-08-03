@@ -707,3 +707,18 @@
       )
   #+END_SRC
   
+* Tables
+
+Add mode to view TSV files in Emacs, without lines wrapping around.
+#+BEGIN_SRC emacs-lisp
+  ;; CSV mode config
+  (use-package csv-mode
+    :ensure t
+    :mode "\\.tab$"
+    :init
+    (setq csv-separators '("\t"))
+    :bind
+    (("M-f" . csv-forward-field)
+    ("M-b" . csv-backward-field))
+  )
+#+END_SRC
