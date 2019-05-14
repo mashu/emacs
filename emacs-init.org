@@ -506,12 +506,6 @@
       (add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
       )
 
-    ;; Load julia for org-mode
-    ;; (load "~/.emacs.d/ob-julia/ob-julia.el")
-
-    ;; Load scala for org-mode part of scala-mode
-    (require 'ob-scala)
-
     ;; Supported languages
     (org-babel-do-load-languages
      'org-babel-load-languages
