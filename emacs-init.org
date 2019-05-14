@@ -88,12 +88,6 @@
     (setq column-number-mode t)
   #+END_SRC
   
-  Fine grined tabs indentation
-  #+BEGIN_SRC emacs-lisp
-    (setq-default indent-tabs-mode nil)
-    (setq-default tab-width 4)
-  #+END_SRC
-
   Show indentation guides
   #+BEGIN_SRC emacs-lisp
     (use-package indent-guide
@@ -131,6 +125,7 @@
     (setq history-delete-duplicates t)
     (setq savehist-save-minibuffer-history 1)
   #+END_SRC
+
 ** Backups
    Instead of current directory use dedicated folder for backups
    #+BEGIN_SRC emacs-lisp
@@ -160,6 +155,7 @@
       (setq flycheck-checker-error-threshold 2000)
     )
   #+END_SRC
+
 ** Completion
    Use snippets as one of company back-ends
    #+BEGIN_SRC emacs-lisp
@@ -234,9 +230,8 @@
        :ensure    projectile
        :config    (projectile-global-mode t)
        :diminish   projectile-mode)
-
-
    #+END_SRC
+
 ** Helm
    Use helm for incremental searching
    #+BEGIN_SRC emacs-lisp
@@ -331,6 +326,7 @@
        :diminish undo-tree-mode
        :init (global-undo-tree-mode))
    #+END_SRC
+
 ** Spellcheck
   Configure flyspell
   #+BEGIN_SRC emacs-lisp
@@ -357,21 +353,6 @@
       (global-set-key (kbd "C-<f8>") 'flyspell-check-next-highlighted-word)
       )
 #+END_SRC
-* Language tool
-  Tool to check grammar
-  #+BEGIN_SRC emacs-lisp
-    (use-package langtool
-      :ensure t
-      :bind (("\C-x4w" . langtool-check)
-         ("\C-x4W" . langtool-check-done)
-         ("\C-x4l" . langtool-switch-default-language)
-         ("\C-x44" . langtool-show-message-at-point)
-         ("\C-x4c" . langtool-correct-buffer))
-      :config
-      (setq langtool-language-tool-jar "/opt/LanguageTool-4.0/languagetool-commandline.jar")
-      (setq langtool-default-language "en-US")
-      )
-  #+END_SRC
 
 * Git
   Define global key *C-c m* for starting Emacs's git client
@@ -384,76 +365,13 @@
       (global-set-key (kbd "C-c m") 'magit-status)
       )
   #+END_SRC
+
 ** Gist
    Install package and assign key-binding for easy gist pasting
    #+BEGIN_SRC emacs-lisp
      (use-package gist
        :ensure t
        :bind ("C-c M-g" . gist-region-or-buffer-private))
-   #+END_SRC
-* C/C++
-  Configure company completion for C/C++ langages.
-  
-  First load irony mode.
-  #+BEGIN_SRC emacs-lisp
-    (use-package irony
-      :ensure t
-      :defer t
-      :diminish irony-mode
-      :init
-      (add-hook 'c++-mode-hook 'irony-mode)
-      (add-hook 'c-mode-hook 'irony-mode)
-      (add-hook 'objc-mode-hook 'irony-mode)
-      :config
-      (defun my-irony-mode-hook ()
-        (define-key irony-mode-map [remap completion-at-point]
-          'irony-completion-at-point-async)
-        (define-key irony-mode-map [remap complete-symbol]
-          'irony-completion-at-point-async))
-      (add-hook 'irony-mode-hook 'my-irony-mode-hook)
-      (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
-      )
-  #+END_SRC
-  
-  Add irony backends for company completion
-  #+BEGIN_SRC emacs-lisp
-    (use-package company-irony-c-headers
-      :ensure t
-      :after irony
-      )
-    (use-package company-irony
-      :ensure t
-      :after company-irony-c-headers
-      :config
-      (eval-after-load 'company
-        '(add-to-list 'company-backends '(company-irony-c-headers company-irony)))
-      )
-  #+END_SRC
-  
-  In addition to company add irony-eldoc to display documentation about symbols or functions in the message buffer
-  #+BEGIN_SRC emacs-lisp
-    (use-package irony-eldoc
-      :after irony
-      :ensure t
-      :diminish eldoc-mode
-      :commands (irony-eldoc)
-      )
-  #+END_SRC
-  
-* Embedded C/C++
-  Use Platform-IO for programming embedded devices
-   #+BEGIN_SRC emacs-lisp
-     (use-package platformio-mode
-       :ensure t
-       :commands (platformio-conditionally-enable)
-       :config
-       (defun irony-and-platformio-hook ()
-         (irony-mode)
-         (irony-eldoc)
-         (platformio-conditionally-enable))
-       (add-hook 'c-mode-hook 'irony-and-platformio-hook)
-       (add-hook 'c++-mode-hook 'irony-and-platformio-hook)
-       )
    #+END_SRC
    
 * Python
@@ -471,7 +389,7 @@
         (elpy-enable)
         :config
         ;; Use pyenv
-        (setq pyenv-path "~/pyenv")
+        (setq pyenv-path "/home/mateusz/miniconda3/envs/ml/")
         (when (file-exists-p pyenv-path)
           (pyvenv-activate pyenv-path))
     
@@ -498,17 +416,7 @@
         )
       )
   #+END_SRC
-  
-  Load syntax highlighting according to PEP8
-  #+BEGIN_SRC emacs-lisp
-    (use-package py-autopep8
-      :after elpy
-      :ensure t
-      :config
-      (add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
-      )
-  #+END_SRC
-  
+    
   Use Jedi completion with company
   #+BEGIN_SRC emacs-lisp
     ;; Python auto completion
@@ -522,6 +430,7 @@
   #+END_SRC
 
 * Statistics
+  
   R for statistics and Julia for numerical computations with ESS (Emacs speaks statistics).
   #+BEGIN_SRC emacs-lisp
     ;; Set path to latest julia
@@ -541,35 +450,9 @@
       )
   #+END_SRC
   
-* Scala
-  Use ENSIME as the Scala toolbox for editing Scala projects, as well as scala-mode and sbt-mode.
-  #+BEGIN_SRC emacs-lisp
-    (use-package sbt-mode
-      :ensure t
-      :pin melpa-stable
-      :config
-      ;; Local hook to run code in console
-      (add-hook 'sbt-mode-hook
-                '(lambda ()
-                   (setq compilation-skip-threshold 1)
-                   (local-set-key (kbd "C-a") 'comint-bol)
-                   (local-set-key (kbd "M-RET") 'comint-accumulate)))
-      )
-    (use-package scala-mode
-      :ensure t
-      :pin melpa-stable
-      :interpreter
-      ("scala" . scala-mode)
-      )
-
-    (use-package ensime
-      :ensure t
-      :pin melpa-stable
-      )
-  #+END_SRC
-
 * Org-mode
 ** Basic
+  
   Load Org-mode on demand.
   #+BEGIN_SRC emacs-lisp
     (use-package org
@@ -635,10 +518,6 @@
      '((R . t)
        (emacs-lisp . t)
        (python . t)
-       (scala . t)
-       (sh . t)
-       (C . t)
-       (sql . t)
        ))
   #+END_SRC
   
@@ -670,6 +549,7 @@
   
 ** References  
   Configure org-ref for handling references
+
   #+BEGIN_SRC emacs-lisp
     (use-package org-ref
       :ensure t
